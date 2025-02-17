@@ -2,11 +2,13 @@ package com.es.aplicacion.service
 
 import com.es.aplicacion.dto.UsuarioDTO
 import com.es.aplicacion.dto.UsuarioRegisterDTO
+import com.es.aplicacion.error.exception.NotFoundException
 import com.es.aplicacion.error.exception.UnauthorizedException
 import com.es.aplicacion.model.Usuario
 import com.es.aplicacion.repository.UsuarioRepository
 import org.apache.coyote.BadRequestException
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.data.crossstore.ChangeSetPersister
 import org.springframework.security.core.userdetails.User
 import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.security.core.userdetails.UserDetailsService
@@ -15,6 +17,9 @@ import org.springframework.stereotype.Service
 
 @Service
 class UsuarioService : UserDetailsService {
+
+    @Autowired
+    private lateinit var externalApiService: ExternalApiService
 
     @Autowired
     private lateinit var usuarioRepository: UsuarioRepository
@@ -38,6 +43,7 @@ class UsuarioService : UserDetailsService {
     }
 
     fun insertUser(usuarioInsertadoDTO: UsuarioRegisterDTO): UsuarioDTO? {
+        val datosProvincias = externalApiService.obtenerDatosDesdeApi()
 
         // Validar que el usuario no exista
         if (!usuarioRepository.findByUsername(usuarioInsertadoDTO.username).isEmpty) {
@@ -54,6 +60,14 @@ class UsuarioService : UserDetailsService {
             throw BadRequestException("Las contraseñas no coinciden")
         }
 
+        // Comprobar Direcciion
+        if (datosProvincias?.data != null) {
+            datosProvincias.data.stream().filter {
+                it.PRO == usuarioInsertadoDTO.direccion.ciudad.uppercase()
+            }.findFirst().orElseThrow {
+                NotFoundException("Provincia ${usuarioInsertadoDTO.direccion.ciudad} no encontrada")
+            }
+        }
 
         // Codificar la contraseña
         val encodedPassword = passwordEncoder.encode(usuarioInsertadoDTO.password)

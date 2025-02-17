@@ -1,6 +1,7 @@
 package com.es.aplicacion.error
 
 import com.es.aplicacion.error.exception.BadRequestException
+import com.es.aplicacion.error.exception.NotFoundException
 import com.es.aplicacion.error.exception.UnauthorizedException
 import jakarta.servlet.http.HttpServletRequest
 import org.springframework.http.HttpStatus
@@ -12,6 +13,14 @@ import javax.naming.AuthenticationException
 
 @ControllerAdvice
 class APIExceptionHandler {
+    @ExceptionHandler(NotFoundException::class, NotFoundException::class) // Las "clases" (excepciones) que se quieren controlar
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ResponseBody
+    fun handleNotFound(request: HttpServletRequest, e: Exception) : ErrorRespuesta {
+        e.printStackTrace()
+        return ErrorRespuesta(e.message!!, request.requestURI)
+    }
+
     @ExceptionHandler(BadRequestException::class, BadRequestException::class) // Las "clases" (excepciones) que se quieren controlar
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ResponseBody
