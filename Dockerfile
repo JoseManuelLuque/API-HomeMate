@@ -2,6 +2,7 @@
 FROM openjdk:17-slim AS build
 WORKDIR /home/gradle/project
 COPY . .
+RUN chmod +x ./gradlew
 RUN ./gradlew clean build --no-daemon
 
 # Use an official OpenJDK runtime as a parent image
