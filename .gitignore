@@ -40,5 +40,5 @@ out/
 .kotlin
 
 ### claves y variables de entorno
-*.pem
-*.env.properties
+##*.pem
+##*.env.properties
