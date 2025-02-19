@@ -13,6 +13,13 @@ import javax.naming.AuthenticationException
 
 @ControllerAdvice
 class APIExceptionHandler {
+    @ExceptionHandler(IllegalArgumentException::class, IllegalArgumentException::class) // Las "clases" (excepciones) que se quieren controlar
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ResponseBody
+    fun handleIllegalArgument(request: HttpServletRequest, e: Exception) : ErrorRespuesta {
+        e.printStackTrace()
+        return ErrorRespuesta(e.message!!, request.requestURI)
+    }
     @ExceptionHandler(NotFoundException::class, NotFoundException::class) // Las "clases" (excepciones) que se quieren controlar
     @ResponseStatus(HttpStatus.NOT_FOUND)
     @ResponseBody

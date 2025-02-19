@@ -36,8 +36,6 @@ class UsuarioController {
         httpRequest: HttpServletRequest,
         @RequestBody usuarioRegisterDTO: UsuarioRegisterDTO
     ) : ResponseEntity<UsuarioDTO>?{
-
-        // TODO: Implementar este metodo
         val usuarioDTO = usuarioService.insertUser(usuarioRegisterDTO)
         return ResponseEntity(usuarioDTO, HttpStatus.CREATED)
 
