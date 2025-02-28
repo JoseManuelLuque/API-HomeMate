@@ -1,5 +1,13 @@
 # API Rest Segura - Gestión de tareas del hogar
 
+### 🔧 Pruebas
+
+{% content-ref url="pruebas-usuarios.md" %}
+[pruebas-usuarios.md](pruebas-usuarios.md)
+{% endcontent-ref %}
+
+
+
 ### 📄 **Documento Usuario**
 
 Representa a los usuarios que pueden registrarse en la aplicación, iniciar sesión y gestionar las tareas dentro de un hogar.
