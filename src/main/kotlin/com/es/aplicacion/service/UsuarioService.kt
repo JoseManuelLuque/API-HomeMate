@@ -27,6 +27,8 @@ class UsuarioService : UserDetailsService {
     @Autowired
     private lateinit var passwordEncoder: PasswordEncoder
 
+    @Autowired
+    private lateinit var hogarService: HogarService
 
     override fun loadUserByUsername(username: String?): UserDetails {
         var usuario: Usuario = usuarioRepository
@@ -98,5 +100,13 @@ class UsuarioService : UserDetailsService {
             email = savedUsuario.email,
             rol = savedUsuario.roles
         )
+    }
+
+    // Funcion que permite al usuario unirse a un hogar
+    fun unirseAHogar(usuarioId: String, codigoHogar: String): Usuario? {
+        val hogar = hogarService.obtenerHogarPorCodigo(codigoHogar) ?: return null
+        val usuario = usuarioRepository.findById(usuarioId).orElse(null) ?: return null
+        usuario.hogar = hogar
+        return usuarioRepository.save(usuario)
     }
 }
