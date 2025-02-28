@@ -104,8 +104,8 @@ class UsuarioService : UserDetailsService {
 
     // Funcion que permite al usuario unirse a un hogar
     fun unirseAHogar(usuarioId: String, codigoHogar: String): Usuario? {
-        val hogar = hogarService.obtenerHogarPorCodigo(codigoHogar) ?: return null
-        val usuario = usuarioRepository.findById(usuarioId).orElse(null) ?: return null
+        var hogar = hogarService.obtenerHogarPorCodigo(codigoHogar) ?: return null
+        var usuario = usuarioRepository.findById(usuarioId).orElse(null) ?: return null
         usuario.hogar = hogar
         return usuarioRepository.save(usuario)
     }
