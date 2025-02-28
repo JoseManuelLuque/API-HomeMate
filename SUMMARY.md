@@ -2,3 +2,4 @@
 
 * [API Rest Segura - Gestión de tareas del hogar](README.md)
 * [Pruebas Usuarios](pruebas-usuarios.md)
+* [Pruebas Tareas](pruebas-tareas.md)
