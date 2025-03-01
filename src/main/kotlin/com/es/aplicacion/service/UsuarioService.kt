@@ -1,11 +1,9 @@
 package com.es.aplicacion.service
 
-import com.es.aplicacion.dto.UsuarioDTO
-import com.es.aplicacion.dto.UsuarioRegisterDTO
+import com.es.aplicacion.dto.Usuario.UsuarioDTO
+import com.es.aplicacion.dto.Usuario.UsuarioRegisterDTO
 import com.es.aplicacion.error.exception.BadRequestException
-import com.es.aplicacion.error.exception.IllegalArgumentException
 import com.es.aplicacion.error.exception.NotFoundException
-import com.es.aplicacion.error.exception.UnauthorizedException
 import com.es.aplicacion.model.Usuario
 import com.es.aplicacion.repository.UsuarioRepository
 import org.springframework.beans.factory.annotation.Autowired
@@ -100,13 +98,5 @@ class UsuarioService : UserDetailsService {
             email = savedUsuario.email,
             rol = savedUsuario.roles
         )
-    }
-
-    // Funcion que permite al usuario unirse a un hogar
-    fun unirseAHogar(usuarioId: String, codigoHogar: String): Usuario? {
-        var hogar = hogarService.obtenerHogarPorCodigo(codigoHogar) ?: return null
-        var usuario = usuarioRepository.findById(usuarioId).orElse(null) ?: return null
-        usuario.hogar = hogar
-        return usuarioRepository.save(usuario)
     }
 }

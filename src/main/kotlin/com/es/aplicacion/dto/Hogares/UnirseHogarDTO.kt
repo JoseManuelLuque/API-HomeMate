@@ -1,4 +1,4 @@
-package com.es.aplicacion.dto
+package com.es.aplicacion.dto.Hogares
 
 data class UnirseHogarDTO (
 /*

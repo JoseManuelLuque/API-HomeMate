@@ -10,6 +10,6 @@ data class Hogar(
     val nombre: String,
     val direccion: Direccion,
     val codigo: String,
-    val usuarios: List<Usuario?> = emptyList(),
-    val tareas: List<Tarea?> = emptyList(),
+    val usuarios: MutableList<Usuario>,
+    val tareas: MutableList<Tarea>
 )

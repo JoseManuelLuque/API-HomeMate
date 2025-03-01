@@ -2,6 +2,7 @@ package com.es.aplicacion.model
 
 import org.bson.codecs.pojo.annotations.BsonId
 import org.springframework.data.mongodb.core.index.Indexed
+import org.springframework.data.mongodb.core.mapping.DBRef
 import org.springframework.data.mongodb.core.mapping.Document
 
 @Document("Usuarios")
@@ -11,8 +12,9 @@ data class Usuario(
     val username: String,
     val password: String,
     val email: String,
-    var hogar: Hogar?,
-    val roles: String = "USER"
+    val roles: String = "USER",
+    @DBRef
+    var hogar: Hogar? = null
 ) {
 
 
