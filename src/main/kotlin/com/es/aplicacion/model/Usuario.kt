@@ -15,8 +15,4 @@ data class Usuario(
     val roles: String = "USER",
     @DBRef
     var hogar: Hogar? = null
-) {
-
-
-
-}
+)

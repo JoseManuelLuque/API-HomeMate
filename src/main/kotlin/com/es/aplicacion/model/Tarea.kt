@@ -1,9 +1,15 @@
 package com.es.aplicacion.model
 
+import org.springframework.data.annotation.Id
+import org.springframework.data.mongodb.core.mapping.DBRef
+import org.springframework.data.mongodb.core.mapping.Document
+
+@Document("Tareas")
 data class Tarea(
-    val id: Int,
+    @Id
+    val id: String? = null,
     val descripcion: String,
     val completada: Boolean,
-    val usuario: Usuario,
-    val hogar: Hogar
+    @DBRef
+    val usuario: Usuario
 )
