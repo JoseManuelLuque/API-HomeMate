@@ -1,3 +1,7 @@
+---
+icon: circle-user
+---
+
 # Pruebas Usuarios
 
 En esta sección se documentan las pruebas de los endpoints de **Login** y **Registro**, incluyendo capturas de **Postman** y de la aplicación móvil.

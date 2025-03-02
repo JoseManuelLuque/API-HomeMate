@@ -1,9 +1,17 @@
+---
+icon: inbox-full
+---
+
 # API Rest Segura - Gestión de tareas del hogar
 
 ### 🔧 Pruebas
 
 {% content-ref url="pruebas-usuarios.md" %}
 [pruebas-usuarios.md](pruebas-usuarios.md)
+{% endcontent-ref %}
+
+{% content-ref url="pruebas-de-gestion-de-tareas.md" %}
+[pruebas-de-gestion-de-tareas.md](pruebas-de-gestion-de-tareas.md)
 {% endcontent-ref %}
 
 

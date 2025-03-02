@@ -1,3 +1,0 @@
-# Pruebas Tareas
-
-### 📚 **Índice**
