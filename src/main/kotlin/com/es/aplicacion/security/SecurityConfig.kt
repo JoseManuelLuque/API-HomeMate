@@ -40,6 +40,9 @@ class SecurityConfig {
                 .requestMatchers("/usuarios/register", "/usuarios/login").permitAll()
 
                 .requestMatchers("/hogares/{idUsuario}/crear", "/hogares/").authenticated()
+
+                .requestMatchers("/tareas/crear", "/tareas/usuario").authenticated()
+
                 .anyRequest().permitAll()
             } // Los recursos protegidos y publicos
             .oauth2ResourceServer { oauth2 -> oauth2.jwt(Customizer.withDefaults()) }

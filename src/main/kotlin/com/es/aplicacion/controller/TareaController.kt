@@ -14,13 +14,13 @@ class TareaController @Autowired constructor(
 ) {
     @PostMapping("/crear")
     fun crearTarea(@RequestBody request: CrearTareaDTO): ResponseEntity<Tarea> {
-        val tarea = tareaService.crearTarea(request.descripcion, request.usuarioId)
+        val tarea = tareaService.crearTarea(request.descripcion)
         return ResponseEntity.ok(tarea)
     }
 
     @GetMapping("/usuario")
     fun obtenerTareasPorUsuario(): ResponseEntity<List<Tarea>> {
-        val tareas = tareaService.obtenerTareasPorUsuario()
+        val tareas = tareaService.obtenerTareasPorAutentificacion()
         return ResponseEntity.ok(tareas)
     }
 }
