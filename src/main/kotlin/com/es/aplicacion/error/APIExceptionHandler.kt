@@ -1,6 +1,7 @@
 package com.es.aplicacion.error
 
 import com.es.aplicacion.error.exception.BadRequestException
+import com.es.aplicacion.error.exception.ForbiddenException
 import com.es.aplicacion.error.exception.NotFoundException
 import com.es.aplicacion.error.exception.UnauthorizedException
 import jakarta.servlet.http.HttpServletRequest
@@ -13,7 +14,15 @@ import javax.naming.AuthenticationException
 
 @ControllerAdvice
 class APIExceptionHandler {
-    @ExceptionHandler(IllegalArgumentException::class, IllegalArgumentException::class) // Las "clases" (excepciones) que se quieren controlar
+    @ExceptionHandler(ForbiddenException::class, ForbiddenException::class)
+    @ResponseStatus(HttpStatus.FORBIDDEN)
+    @ResponseBody
+    fun handleForbidden(request: HttpServletRequest, e: Exception) : ErrorRespuesta {
+        e.printStackTrace()
+        return ErrorRespuesta(e.message!!, request.requestURI)
+    }
+
+    @ExceptionHandler(IllegalArgumentException::class, IllegalArgumentException::class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ResponseBody
     fun handleIllegalArgument(request: HttpServletRequest, e: Exception) : ErrorRespuesta {

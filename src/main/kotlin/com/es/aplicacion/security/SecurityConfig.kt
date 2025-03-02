@@ -43,6 +43,8 @@ class SecurityConfig {
 
                 .requestMatchers("/tareas/crear", "/tareas/usuario").authenticated()
 
+                .requestMatchers("/usuarios/admin").hasRole("ADMIN")
+
                 .anyRequest().permitAll()
             } // Los recursos protegidos y publicos
             .oauth2ResourceServer { oauth2 -> oauth2.jwt(Customizer.withDefaults()) }
