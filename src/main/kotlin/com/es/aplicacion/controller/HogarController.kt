@@ -10,9 +10,10 @@ import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("/hogares")
-class HogarController @Autowired constructor(
-    private val hogarService: HogarService
-) {
+class HogarController {
+    @Autowired
+    private lateinit var hogarService: HogarService
+
     @PostMapping("/{idUsuario}/crear")
     fun crearHogar(@RequestBody request: CrearHogarDTO, @PathVariable idUsuario: String): ResponseEntity<Hogar> {
         val hogar = hogarService.crearHogar(request.nombre, request.direccion, idUsuario)

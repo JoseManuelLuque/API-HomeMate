@@ -1,7 +1,6 @@
 package com.es.aplicacion.controller
 
 import com.es.aplicacion.dto.Usuario.LoginUsuarioDTO
-import com.es.aplicacion.dto.Hogares.UnirseHogarDTO
 import com.es.aplicacion.dto.Usuario.UsuarioDTO
 import com.es.aplicacion.dto.Usuario.UsuarioRegisterDTO
 import com.es.aplicacion.error.exception.UnauthorizedException
@@ -43,20 +42,18 @@ class UsuarioController {
     // Función de Inicio de Sesión
     @PostMapping("/login")
     fun login(@RequestBody usuario: LoginUsuarioDTO): ResponseEntity<Any>? {
-
         val authentication: Authentication
         try {
             authentication = authenticationManager.authenticate(
                 UsernamePasswordAuthenticationToken(
-                    usuario.username,
+                    usuario.email, // Usar el email en lugar del nombre de usuario
                     usuario.password
                 )
             )
         } catch (e: AuthenticationException) {
             throw UnauthorizedException("Credenciales incorrectas, ${e.message}")
         }
-        var token = tokenService.generarToken(authentication)
-
+        val token = tokenService.generarToken(authentication)
         return ResponseEntity(mapOf("token" to token), HttpStatus.CREATED)
     }
 }

@@ -28,15 +28,13 @@ class UsuarioService : UserDetailsService {
     @Autowired
     private lateinit var hogarService: HogarService
 
-    override fun loadUserByUsername(username: String?): UserDetails {
-        var usuario: Usuario = usuarioRepository
-            .findByUsername(username!!)
-            .orElseThrow {
-                NotFoundException("$username no existente")
-            }
+    override fun loadUserByUsername(email: String?): UserDetails {
+        val usuario: Usuario = usuarioRepository
+            .findByEmail(email!!)
+            .orElseThrow { NotFoundException("Email $email no existente") }
 
         return User.builder()
-            .username(usuario.username)
+            .username(usuario.email) // Usar el email como nombre de usuario
             .password(usuario.password)
             .roles(usuario.roles)
             .build()

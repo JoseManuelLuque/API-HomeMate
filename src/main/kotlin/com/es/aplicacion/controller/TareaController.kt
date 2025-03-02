@@ -18,9 +18,9 @@ class TareaController @Autowired constructor(
         return ResponseEntity.ok(tarea)
     }
 
-    @GetMapping("/usuario/{usuarioId}")
-    fun obtenerTareasPorUsuario(@PathVariable usuarioId: String): ResponseEntity<List<Tarea>> {
-        val tareas = tareaService.obtenerTareasPorUsuario(usuarioId)
+    @GetMapping("/usuario")
+    fun obtenerTareasPorUsuario(): ResponseEntity<List<Tarea>> {
+        val tareas = tareaService.obtenerTareasPorUsuario()
         return ResponseEntity.ok(tareas)
     }
 }
