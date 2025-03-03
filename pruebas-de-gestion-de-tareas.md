@@ -20,7 +20,6 @@ Esta sección documenta las pruebas realizadas sobre el endpoint de **Tareas**, 
   * ❌ Intentar eliminar tarea que no pertenece al usuario
   * ✅ Eliminar tarea como ADMIN
   * ❌ Intentar eliminar tarea inexistente
-* 📌 Notas Adicionales
 
 ***
 
