@@ -23,4 +23,10 @@ class TareaController @Autowired constructor(
         val tareas = tareaService.obtenerTareasPorAutentificacion()
         return ResponseEntity.ok(tareas)
     }
+
+    @GetMapping("/getAll")
+    fun getAllTareas(): ResponseEntity<List<Tarea>> {
+        val tareas = tareaService.obtenerTodasLasTareas()
+        return ResponseEntity.ok(tareas)
+    }
 }

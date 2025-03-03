@@ -57,8 +57,4 @@ class UsuarioController {
         return ResponseEntity(mapOf("token" to token), HttpStatus.CREATED)
     }
 
-    @GetMapping("/admin")
-    fun admin(): String {
-        return "Hola Admin"
-    }
 }

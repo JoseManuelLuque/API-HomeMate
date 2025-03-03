@@ -43,7 +43,7 @@ class SecurityConfig {
 
                 .requestMatchers("/tareas/crear", "/tareas/usuario").authenticated()
 
-                .requestMatchers("/usuarios/admin").hasRole("ADMIN")
+                .requestMatchers("/tareas/getAll").hasRole("ADMIN")
 
                 .anyRequest().permitAll()
             } // Los recursos protegidos y publicos

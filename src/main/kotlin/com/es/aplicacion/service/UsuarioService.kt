@@ -25,8 +25,6 @@ class UsuarioService : UserDetailsService {
     @Autowired
     private lateinit var passwordEncoder: PasswordEncoder
 
-    @Autowired
-    private lateinit var hogarService: HogarService
 
     override fun loadUserByUsername(email: String?): UserDetails {
         val usuario: Usuario = usuarioRepository

@@ -42,4 +42,8 @@ class TareaService {
 
         return tareaRepository.findByUsuario(usuario)
     }
+
+    fun obtenerTodasLasTareas(): List<Tarea> {
+        return tareaRepository.findAll()
+    }
 }
