@@ -60,8 +60,7 @@ Esta sección documenta las pruebas realizadas sobre el endpoint de **Tareas**, 
 
 **Descripción:** Se consulta correctamente la lista de tareas asignadas al usuario autenticado. La API devuelve `200 OK`.
 
-📸 **Captura en Postman:**\
-
+📸 **Captura en Postman:**
 
 <figure><img src=".gitbook/assets/image (1).png" alt=""><figcaption></figcaption></figure>
 
@@ -80,6 +79,34 @@ Esta sección documenta las pruebas realizadas sobre el endpoint de **Tareas**, 
 <figure><img src=".gitbook/assets/image (2).png" alt=""><figcaption></figcaption></figure>
 
 📱 **Captura en la App:**\
+
+
+***
+
+#### ✅ Obtener todas las tareas
+
+**Descripción: Siendo Administrador se obtienen todas las tareas de todos los usuarios. La API devuelve `200 OK.`**
+
+📸 **Captura en Postman:**
+
+<figure><img src=".gitbook/assets/image (3).png" alt=""><figcaption></figcaption></figure>
+
+📱 **Captura en la App:**
+
+
+
+***
+
+#### ❌ Intentar ver todas las tareas sin ser Administrador
+
+
+
+📸 **Captura en Postman:**
+
+
+
+📱 **Captura en la App:**
+
 
 
 ***
