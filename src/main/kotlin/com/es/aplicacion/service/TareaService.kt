@@ -15,7 +15,8 @@ class TareaService {
     private lateinit var tareaRepository: TareaRepository
 
     @Autowired
-    private lateinit var usuarioRepository: UsuarioRepository
+    private lateinit var usuarioRepository:
+            UsuarioRepository
 
     fun crearTarea(descripcion: String): Tarea {
         // Obtener el email del contexto de seguridad
@@ -34,9 +35,9 @@ class TareaService {
         return tareaRepository.save(tarea)
     }
 
-    fun eliminarTarea(id: Long) {
-        if (tareaRepository.existsById(id.toString())) {
-            tareaRepository.deleteById(id.toString())
+    fun eliminarTarea(id: String) {
+        if (tareaRepository.existsById(id)) {
+            tareaRepository.deleteById(id)
         } else {
             throw EntityNotFoundException("Tarea no encontrada")
         }

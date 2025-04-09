@@ -31,9 +31,9 @@ class TareaController @Autowired constructor(
         return ResponseEntity.ok(tareas)
     }
 
-    @DeleteMapping("/{id}")
-    fun eliminarTarea(@PathVariable id: Long?): ResponseEntity<Void?> {
-        tareaService.eliminarTarea(id)
+    @DeleteMapping("/delete")
+    fun eliminarTarea(@RequestBody id: String?): ResponseEntity<Void?> {
+        tareaService.eliminarTarea(id!!)
         return ResponseEntity.noContent().build<Void?>()
     }
 }
