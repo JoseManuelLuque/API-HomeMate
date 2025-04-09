@@ -35,8 +35,8 @@ class TareaService {
     }
 
     fun eliminarTarea(id: Long) {
-        if (tareaRepository.existsById(id)) {
-            tareaRepository.deleteById(id)
+        if (tareaRepository.existsById(id.toString())) {
+            tareaRepository.deleteById(id.toString())
         } else {
             throw EntityNotFoundException("Tarea no encontrada")
         }
