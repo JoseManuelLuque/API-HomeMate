@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 
+
 @RestController
 @RequestMapping("/tareas")
 class TareaController @Autowired constructor(
@@ -28,5 +29,11 @@ class TareaController @Autowired constructor(
     fun getAllTareas(): ResponseEntity<List<Tarea>> {
         val tareas = tareaService.obtenerTodasLasTareas()
         return ResponseEntity.ok(tareas)
+    }
+
+    @DeleteMapping("/{id}")
+    fun eliminarTarea(@PathVariable id: Long?): ResponseEntity<Void?> {
+        tareaService.eliminarTarea(id)
+        return ResponseEntity.noContent().build<Void?>()
     }
 }

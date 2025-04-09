@@ -1,5 +1,6 @@
 package com.es.aplicacion.service
 
+import com.es.aplicacion.error.exception.EntityNotFoundException
 import com.es.aplicacion.error.exception.NotFoundException
 import com.es.aplicacion.model.Tarea
 import com.es.aplicacion.repository.TareaRepository
@@ -31,6 +32,14 @@ class TareaService {
         val tarea = Tarea(descripcion = descripcion, completada = false, usuario = usuario)
 
         return tareaRepository.save(tarea)
+    }
+
+    fun eliminarTarea(id: Long) {
+        if (tareaRepository.existsById(id)) {
+            tareaRepository.deleteById(id)
+        } else {
+            throw EntityNotFoundException("Tarea no encontrada")
+        }
     }
 
     fun obtenerTareasPorAutentificacion(): List<Tarea> {

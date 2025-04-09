@@ -1,6 +1,7 @@
 package com.es.aplicacion.error
 
 import com.es.aplicacion.error.exception.BadRequestException
+import com.es.aplicacion.error.exception.EntityNotFoundException
 import com.es.aplicacion.error.exception.ForbiddenException
 import com.es.aplicacion.error.exception.NotFoundException
 import com.es.aplicacion.error.exception.UnauthorizedException
@@ -14,6 +15,14 @@ import javax.naming.AuthenticationException
 
 @ControllerAdvice
 class APIExceptionHandler {
+    @ExceptionHandler(EntityNotFoundException::class, ForbiddenException::class)
+    @ResponseStatus(HttpStatus.FORBIDDEN)
+    @ResponseBody
+    fun handleEnityNotFound(request: HttpServletRequest, e: Exception) : ErrorRespuesta {
+        e.printStackTrace()
+        return ErrorRespuesta(e.message!!, request.requestURI)
+    }
+
     @ExceptionHandler(ForbiddenException::class, ForbiddenException::class)
     @ResponseStatus(HttpStatus.FORBIDDEN)
     @ResponseBody
