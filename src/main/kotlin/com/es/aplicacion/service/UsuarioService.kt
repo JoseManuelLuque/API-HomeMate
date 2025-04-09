@@ -17,9 +17,6 @@ import org.springframework.stereotype.Service
 class UsuarioService : UserDetailsService {
 
     @Autowired
-    private lateinit var externalApiService: ExternalApiService
-
-    @Autowired
     private lateinit var usuarioRepository: UsuarioRepository
 
     @Autowired
@@ -39,8 +36,6 @@ class UsuarioService : UserDetailsService {
     }
 
     fun insertUser(usuarioInsertadoDTO: UsuarioRegisterDTO): UsuarioDTO? {
-        val datosProvincias = externalApiService.obtenerDatosDesdeApi()
-
         //Validar campos no nulos o vacios
         if (usuarioInsertadoDTO.username.isNullOrEmpty() || usuarioInsertadoDTO.email.isNullOrEmpty() || usuarioInsertadoDTO.password.isNullOrEmpty() || usuarioInsertadoDTO.passwordRepeat.isNullOrEmpty()) {
             throw BadRequestException("Se deben rellenar todos los campos")
@@ -60,15 +55,6 @@ class UsuarioService : UserDetailsService {
         if (usuarioInsertadoDTO.password != usuarioInsertadoDTO.passwordRepeat) {
             throw BadRequestException("Las contraseñas no coinciden")
         }
-
-        // Comprobar Direcciion
-        /*if (datosProvincias?.data != null) {
-            datosProvincias.data.stream().filter {
-                it.PRO == usuarioInsertadoDTO.direccion.ciudad.uppercase()
-            }.findFirst().orElseThrow {
-                NotFoundException("Provincia ${usuarioInsertadoDTO.direccion.ciudad} no encontrada")
-            }
-        }*/
 
         // Codificar la contraseña
         val encodedPassword = passwordEncoder.encode(usuarioInsertadoDTO.password)
