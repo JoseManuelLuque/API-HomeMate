@@ -15,8 +15,8 @@ import javax.naming.AuthenticationException
 
 @ControllerAdvice
 class APIExceptionHandler {
-    @ExceptionHandler(EntityNotFoundException::class, ForbiddenException::class)
-    @ResponseStatus(HttpStatus.FORBIDDEN)
+    @ExceptionHandler(EntityNotFoundException::class, EntityNotFoundException::class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
     @ResponseBody
     fun handleEnityNotFound(request: HttpServletRequest, e: Exception) : ErrorRespuesta {
         e.printStackTrace()
