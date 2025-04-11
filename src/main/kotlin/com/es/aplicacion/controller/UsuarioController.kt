@@ -14,6 +14,7 @@ import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.core.Authentication
 import org.springframework.security.core.AuthenticationException
+import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.web.bind.annotation.*
 
 @RestController
@@ -57,4 +58,12 @@ class UsuarioController {
         return ResponseEntity(mapOf("token" to token), HttpStatus.CREATED)
     }
 
+    // Función para comprobobar admin
+    @GetMapping("/admin")
+    fun esAdmin(): ResponseEntity<Boolean> {
+        val authentication = SecurityContextHolder.getContext().authentication
+        val roles = authentication.authorities.map { it.authority }
+        val esAdmin = roles.contains("ROLE_ADMIN")
+        return ResponseEntity.ok(esAdmin)
+    }
 }
