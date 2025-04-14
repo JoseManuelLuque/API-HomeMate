@@ -4,6 +4,7 @@ import com.es.aplicacion.dto.Usuario.LoginUsuarioDTO
 import com.es.aplicacion.dto.Usuario.UsuarioDTO
 import com.es.aplicacion.dto.Usuario.UsuarioRegisterDTO
 import com.es.aplicacion.error.exception.UnauthorizedException
+import com.es.aplicacion.model.Usuario
 import com.es.aplicacion.service.TokenService
 import com.es.aplicacion.service.UsuarioService
 import jakarta.servlet.http.HttpServletRequest
@@ -15,6 +16,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication
 import org.springframework.security.core.AuthenticationException
 import org.springframework.security.core.context.SecurityContextHolder
+import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.web.bind.annotation.*
 
 @RestController
@@ -65,5 +67,14 @@ class UsuarioController {
         val roles = authentication.authorities.map { it.authority }
         val esAdmin = roles.contains("ROLE_ADMIN")
         return ResponseEntity.ok(esAdmin)
+    }
+
+    // Función para obtener los datos del usuario autenticado
+    @GetMapping("/me")
+    fun obtenerDatosUsuario(): ResponseEntity<Usuario> {
+        val authentication = SecurityContextHolder.getContext().authentication
+        val email = authentication.name
+        val usuario = usuarioService.findByEmail(email)
+        return ResponseEntity.ok(usuario)
     }
 }

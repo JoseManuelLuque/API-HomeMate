@@ -35,6 +35,12 @@ class UsuarioService : UserDetailsService {
             .build()
     }
 
+    fun findByEmail(email: String?): Usuario {
+        return usuarioRepository
+            .findByEmail(email!!)
+            .orElseThrow { NotFoundException("Email $email no existente") }
+    }
+
     fun insertUser(usuarioInsertadoDTO: UsuarioRegisterDTO): UsuarioDTO? {
         //Validar campos no nulos o vacios
         if (usuarioInsertadoDTO.username.isNullOrEmpty() || usuarioInsertadoDTO.email.isNullOrEmpty() || usuarioInsertadoDTO.password.isNullOrEmpty() || usuarioInsertadoDTO.passwordRepeat.isNullOrEmpty()) {
