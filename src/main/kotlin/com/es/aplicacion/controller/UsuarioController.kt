@@ -77,4 +77,12 @@ class UsuarioController {
         val usuario = usuarioService.findByEmail(email)
         return ResponseEntity.ok(usuario)
     }
+
+    @PutMapping("/update")
+    fun updateUsuario(
+        @RequestBody usuario: Usuario
+    ): ResponseEntity<Usuario?> {
+        val usuarioActualizado = usuarioService.updateUser(usuario)
+        return ResponseEntity.ok(usuarioActualizado)
+    }
 }

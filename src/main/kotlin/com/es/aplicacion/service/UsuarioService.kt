@@ -87,4 +87,19 @@ class UsuarioService : UserDetailsService {
             rol = savedUsuario.roles
         )
     }
+
+    fun updateUser(usuarioActualizado: Usuario): Usuario {
+        val usuario = usuarioRepository.findById(usuarioActualizado._id!!)
+            .orElseThrow { NotFoundException("Usuario no encontrado") }
+
+        // Actualizar los campos del usuario
+        usuario.username = usuarioActualizado.username
+        usuario.email = usuarioActualizado.email
+        usuario.roles = usuarioActualizado.roles
+
+        // Guardar el usuario actualizado en la base de datos
+        val updatedUsuario = usuarioRepository.save(usuario)
+
+        return updatedUsuario
+    }
 }

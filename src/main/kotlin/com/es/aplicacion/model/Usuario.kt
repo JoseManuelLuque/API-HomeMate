@@ -9,10 +9,10 @@ import org.springframework.data.mongodb.core.mapping.Document
 data class Usuario(
     @BsonId
     val _id : String?,
-    val username: String,
-    val password: String,
-    val email: String,
-    val roles: String = "USER",
+    var username: String,
+    var password: String,
+    var email: String,
+    var roles: String = "USER",
     @DBRef
     var hogar: Hogar? = null
 )
