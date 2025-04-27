@@ -1,10 +1,14 @@
 package com.es.aplicacion.service
 
+import com.es.aplicacion.dto.Tareas.TareaDTO
+import com.es.aplicacion.dto.Usuario.UsuarioConTareasDTO
 import com.es.aplicacion.dto.Usuario.UsuarioDTO
 import com.es.aplicacion.dto.Usuario.UsuarioRegisterDTO
 import com.es.aplicacion.error.exception.BadRequestException
 import com.es.aplicacion.error.exception.NotFoundException
+import com.es.aplicacion.model.Tarea
 import com.es.aplicacion.model.Usuario
+import com.es.aplicacion.repository.TareaRepository
 import com.es.aplicacion.repository.UsuarioRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.security.core.userdetails.User
@@ -15,6 +19,9 @@ import org.springframework.stereotype.Service
 
 @Service
 class UsuarioService : UserDetailsService {
+
+    @Autowired
+    private lateinit var tareaRepository: TareaRepository
 
     @Autowired
     private lateinit var usuarioRepository: UsuarioRepository
@@ -101,5 +108,31 @@ class UsuarioService : UserDetailsService {
         val updatedUsuario = usuarioRepository.save(usuario)
 
         return updatedUsuario
+    }
+
+    fun eliminarUsuario(id: String) {
+        if (!usuarioRepository.existsById(id)) {
+            throw NotFoundException("Usuario no encontrado")
+        }
+        usuarioRepository.deleteById(id)
+    }
+
+    fun obtenerUsuariosConTareas(): List<UsuarioConTareasDTO> {
+        return usuarioRepository.findAll().map { usuario ->
+            val tareas = tareaRepository.findByUsuario(usuario).map { tarea ->
+                TareaDTO(
+                    _id = tarea._id,
+                    descripcion = tarea.descripcion,
+                    completada = tarea.completada
+                )
+            }
+            UsuarioConTareasDTO(
+                id = usuario._id,
+                username = usuario.username,
+                email = usuario.email,
+                roles = usuario.roles,
+                tareas = tareas
+            )
+        }
     }
 }

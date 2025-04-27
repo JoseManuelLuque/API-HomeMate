@@ -15,17 +15,17 @@ class TareaService {
     private lateinit var tareaRepository: TareaRepository
 
     @Autowired
-    private lateinit var usuarioRepository:
-            UsuarioRepository
+    private lateinit var usuarioRepository: UsuarioRepository
 
     fun crearTarea(descripcion: String): Tarea {
         // Obtener el email del contexto de seguridad
         val authEmail = SecurityContextHolder.getContext().authentication.name
 
         // Buscar el usuario por el email
-        val usuario = usuarioRepository.findByEmail(authEmail).orElseThrow { NotFoundException("Usuario no encontrado") }
+        val usuario =
+            usuarioRepository.findByEmail(authEmail).orElseThrow { NotFoundException("Usuario no encontrado") }
 
-        if(descripcion.isEmpty()) {
+        if (descripcion.isEmpty()) {
             throw IllegalArgumentException("La descripcion no puede estar vacia")
         }
 
@@ -48,7 +48,8 @@ class TareaService {
         val authEmail = SecurityContextHolder.getContext().authentication.name
 
         // Buscar el usuario por el email
-        val usuario = usuarioRepository.findByEmail(authEmail).orElseThrow { NotFoundException("Usuario no encontrado") }
+        val usuario =
+            usuarioRepository.findByEmail(authEmail).orElseThrow { NotFoundException("Usuario no encontrado") }
 
         return tareaRepository.findByUsuario(usuario)
     }

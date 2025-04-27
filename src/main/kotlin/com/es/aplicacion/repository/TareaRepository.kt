@@ -6,4 +6,6 @@ import org.springframework.data.mongodb.repository.MongoRepository
 
 interface TareaRepository : MongoRepository<Tarea, String> {
     fun findByUsuario(usuario: Usuario): List<Tarea>
+
+    fun findByUsuario__id(usuarioId: String): List<Tarea>
 }

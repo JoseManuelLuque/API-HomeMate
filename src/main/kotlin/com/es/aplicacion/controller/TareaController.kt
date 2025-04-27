@@ -10,9 +10,10 @@ import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("/tareas")
-class TareaController @Autowired constructor(
-    private val tareaService: TareaService
-) {
+class TareaController {
+    @Autowired
+    private lateinit var tareaService: TareaService
+
     @PostMapping("/crear")
     fun crearTarea(@RequestBody request: CrearTareaDTO): ResponseEntity<Tarea> {
         val tarea = tareaService.crearTarea(request.descripcion)

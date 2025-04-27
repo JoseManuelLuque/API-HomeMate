@@ -39,6 +39,8 @@ class SecurityConfig {
                 // Permito Registrarse y Iniciar Sesion a cualquiera
                 .requestMatchers("/usuarios/register", "/usuarios/login").permitAll()
 
+                .requestMatchers("/usuarios/tareas").hasRole("ADMIN")
+
                 .requestMatchers("/hogares/{idUsuario}/crear", "/hogares/").authenticated()
 
                 .requestMatchers("/tareas/crear", "/tareas/usuario").authenticated()

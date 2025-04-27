@@ -1,9 +1,11 @@
 package com.es.aplicacion.controller
 
 import com.es.aplicacion.dto.Usuario.LoginUsuarioDTO
+import com.es.aplicacion.dto.Usuario.UsuarioConTareasDTO
 import com.es.aplicacion.dto.Usuario.UsuarioDTO
 import com.es.aplicacion.dto.Usuario.UsuarioRegisterDTO
 import com.es.aplicacion.error.exception.UnauthorizedException
+import com.es.aplicacion.model.Tarea
 import com.es.aplicacion.model.Usuario
 import com.es.aplicacion.service.TokenService
 import com.es.aplicacion.service.UsuarioService
@@ -16,7 +18,6 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication
 import org.springframework.security.core.AuthenticationException
 import org.springframework.security.core.context.SecurityContextHolder
-import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.web.bind.annotation.*
 
 @RestController
@@ -85,4 +86,16 @@ class UsuarioController {
         val usuarioActualizado = usuarioService.updateUser(usuario)
         return ResponseEntity.ok(usuarioActualizado)
     }
+
+    @DeleteMapping("/delete/{id}")
+    fun eliminarUsuario(@PathVariable id: String): ResponseEntity<Any> {
+        usuarioService.eliminarUsuario(id)
+        return ResponseEntity.noContent().build<Any>()
+    }
+
+    @GetMapping("/tareas")
+    fun obtenerUsuariosConTareas(): List<UsuarioConTareasDTO> {
+        return usuarioService.obtenerUsuariosConTareas()
+    }
+
 }
