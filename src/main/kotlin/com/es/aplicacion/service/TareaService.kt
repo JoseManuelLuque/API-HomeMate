@@ -35,6 +35,22 @@ class TareaService {
         return tareaRepository.save(tarea)
     }
 
+    fun crearTareaUsuario(descripcion: String, idUsuario: String): Tarea {
+        // Obtener el usuario por su ID
+        val usuario =
+            usuarioRepository.findById(idUsuario).orElseThrow { NotFoundException("Usuario no encontrado") }
+
+        // Validar que la descripcion no esté vacía
+        if (descripcion.isEmpty()) {
+            throw IllegalArgumentException("La descripcion no puede estar vacia")
+        }
+
+        // Crear la tarea, con la descripcion y el usuario
+        val tarea = Tarea(descripcion = descripcion, completada = false, usuario = usuario)
+
+        return tareaRepository.save(tarea)
+    }
+
     fun eliminarTarea(id: String) {
         if (tareaRepository.existsById(id)) {
             tareaRepository.deleteById(id)

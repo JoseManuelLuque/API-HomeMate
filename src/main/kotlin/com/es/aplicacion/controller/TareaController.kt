@@ -20,6 +20,12 @@ class TareaController {
         return ResponseEntity.ok(tarea)
     }
 
+    @PostMapping("/crear/usuario/{idUsuario}")
+    fun crearTareaUsuario(@RequestBody request: CrearTareaDTO, @PathVariable idUsuario: String): ResponseEntity<Tarea> {
+        val tarea = tareaService.crearTareaUsuario(request.descripcion, idUsuario)
+        return ResponseEntity.ok(tarea)
+    }
+
     @GetMapping("/usuario")
     fun obtenerTareasPorUsuario(): ResponseEntity<List<Tarea>> {
         val tareas = tareaService.obtenerTareasPorAutentificacion()
