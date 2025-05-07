@@ -10,7 +10,7 @@ data class Tarea(
     @BsonId
     val _id: String? = null,
     val descripcion: String,
-    val completada: Boolean,
+    var completada: Boolean,
     @DBRef
     val usuario: Usuario
 )

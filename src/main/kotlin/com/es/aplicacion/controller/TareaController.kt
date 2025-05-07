@@ -37,4 +37,10 @@ class TareaController {
         tareaService.eliminarTarea(id!!)
         return ResponseEntity.noContent().build<Void?>()
     }
+
+    @PutMapping("/update/status/{id}")
+    fun actualzarEstadoTarea(@PathVariable id: String): ResponseEntity<Tarea> {
+        val tarea = tareaService.actualizarEstadoTarea(id)
+        return ResponseEntity.ok(tarea)
+    }
 }

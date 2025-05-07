@@ -57,4 +57,16 @@ class TareaService {
     fun obtenerTodasLasTareas(): List<Tarea> {
         return tareaRepository.findAll()
     }
+
+    fun actualizarEstadoTarea(id: String): Tarea {
+        val tarea = tareaRepository.findById(id)
+        .orElseThrow { NotFoundException("Tarea no encontrada") }
+
+        tarea.completada = !tarea.completada
+
+        val EstadoTareaActualizado = tareaRepository.save(tarea)
+
+        return EstadoTareaActualizado
+
+    }
 }
