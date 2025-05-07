@@ -127,7 +127,7 @@ class UsuarioService : UserDetailsService {
                 )
             }
             UsuarioConTareasDTO(
-                id = usuario._id,
+                _id = usuario._id,
                 username = usuario.username,
                 email = usuario.email,
                 roles = usuario.roles,
