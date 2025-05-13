@@ -39,15 +39,16 @@ class SecurityConfig {
                 // Permito Registrarse y Iniciar Sesion a cualquiera
                 .requestMatchers("/usuarios/register", "/usuarios/login").permitAll()
 
-                .requestMatchers("/usuarios/tareas").hasRole("ADMIN")
+                // Usuarios
+                .requestMatchers("/usuarios/admin", "/usuarios/me", "/usuarios/update" ).authenticated() // Usuario autenticado
+                .requestMatchers("/usuarios/delete/{id}", "/usuarios/tareas").hasRole("ADMIN") // Solo ADMIN
 
-                .requestMatchers("/hogares/{idUsuario}/crear", "/hogares/").authenticated()
+                // Tareas
+                .requestMatchers("/tareas/crear", "/tareas/delete/{id}", "/tareas/update/status/{id}/", "/tareas/usuario").authenticated() // Usuario autenticado
+                .requestMatchers("/tareas/crear/usuario/{idUsuario}", "tareas/getAll").hasRole("ADMIN") // Solo ADMIN
 
-                .requestMatchers("/tareas/crear", "/tareas/usuario").authenticated()
 
-                .requestMatchers("/tareas/getAll").hasRole("ADMIN")
-
-                .anyRequest().permitAll()
+                .anyRequest().authenticated()
             } // Los recursos protegidos y publicos
             .oauth2ResourceServer { oauth2 -> oauth2.jwt(Customizer.withDefaults()) }
             .sessionManagement { session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS) }

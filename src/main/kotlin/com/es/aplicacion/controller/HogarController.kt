@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*
 class HogarController {
     @Autowired
     private lateinit var hogarService: HogarService
-
+    // Función para crear un hogar
     @PostMapping("/{idUsuario}/crear")
     fun crearHogar(@RequestBody request: CrearHogarDTO, @PathVariable idUsuario: String): ResponseEntity<Hogar> {
         val hogar = hogarService.crearHogar(request.nombre, request.direccion, idUsuario)

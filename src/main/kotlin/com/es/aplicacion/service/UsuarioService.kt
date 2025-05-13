@@ -6,7 +6,6 @@ import com.es.aplicacion.dto.Usuario.UsuarioDTO
 import com.es.aplicacion.dto.Usuario.UsuarioRegisterDTO
 import com.es.aplicacion.error.exception.BadRequestException
 import com.es.aplicacion.error.exception.NotFoundException
-import com.es.aplicacion.model.Tarea
 import com.es.aplicacion.model.Usuario
 import com.es.aplicacion.repository.TareaRepository
 import com.es.aplicacion.repository.UsuarioRepository
@@ -17,6 +16,9 @@ import org.springframework.security.core.userdetails.UserDetailsService
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
 
+/**
+ * # Servicio para gestionar las operaciones relacionadas con los usuarios.
+ */
 @Service
 class UsuarioService : UserDetailsService {
 
@@ -29,7 +31,13 @@ class UsuarioService : UserDetailsService {
     @Autowired
     private lateinit var passwordEncoder: PasswordEncoder
 
-
+    /**
+     * ### Carga los detalles de un usuario por su email.
+     *
+     * @param email Email del usuario a buscar.
+     * @return UserDetails con la información del usuario.
+     * @throws NotFoundException Si el email no existe en la base de datos.
+     */
     override fun loadUserByUsername(email: String?): UserDetails {
         val usuario: Usuario = usuarioRepository
             .findByEmail(email!!)
@@ -42,15 +50,29 @@ class UsuarioService : UserDetailsService {
             .build()
     }
 
+    /**
+     * ### Busca un usuario por su email.
+     *
+     * @param email Email del usuario a buscar.
+     * @return Usuario encontrado.
+     * @throws NotFoundException Si el email no existe en la base de datos.
+     */
     fun findByEmail(email: String?): Usuario {
         return usuarioRepository
             .findByEmail(email!!)
             .orElseThrow { NotFoundException("Email $email no existente") }
     }
 
+    /**
+     * ### Inserta un nuevo usuario en la base de datos.
+     *
+     * @param usuarioInsertadoDTO Objeto con los datos del usuario a registrar.
+     * @return UsuarioDTO con los datos del usuario registrado.
+     * @throws BadRequestException Si los datos son inválidos o el usuario ya existe.
+     */
     fun insertUser(usuarioInsertadoDTO: UsuarioRegisterDTO): UsuarioDTO? {
         //Validar campos no nulos o vacios
-        if (usuarioInsertadoDTO.username.isNullOrEmpty() || usuarioInsertadoDTO.email.isNullOrEmpty() || usuarioInsertadoDTO.password.isNullOrEmpty() || usuarioInsertadoDTO.passwordRepeat.isNullOrEmpty()) {
+        if (usuarioInsertadoDTO.username.isEmpty() || usuarioInsertadoDTO.email.isEmpty() || usuarioInsertadoDTO.password.isEmpty() || usuarioInsertadoDTO.passwordRepeat.isEmpty()) {
             throw BadRequestException("Se deben rellenar todos los campos")
         }
 
@@ -60,7 +82,7 @@ class UsuarioService : UserDetailsService {
         }
 
         // Comprobar que el email no exista ya en la base de datos
-        if (usuarioRepository.findByEmail(usuarioInsertadoDTO.email.toString()).isPresent) {
+        if (usuarioRepository.findByEmail(usuarioInsertadoDTO.email).isPresent) {
             throw BadRequestException("El email ya existe")
         }
 
@@ -95,6 +117,13 @@ class UsuarioService : UserDetailsService {
         )
     }
 
+    /**
+     * ### Actualiza los datos de un usuario existente.
+     *
+     * @param usuarioActualizado Objeto Usuario con los datos actualizados.
+     * @return Usuario actualizado.
+     * @throws NotFoundException Si el usuario no existe.
+     */
     fun updateUser(usuarioActualizado: Usuario): Usuario {
         val usuario = usuarioRepository.findById(usuarioActualizado._id!!)
             .orElseThrow { NotFoundException("Usuario no encontrado") }
@@ -110,6 +139,12 @@ class UsuarioService : UserDetailsService {
         return updatedUsuario
     }
 
+    /**
+     * ### Elimina un usuario por su ID.
+     *
+     * @param id ID del usuario a eliminar.
+     * @throws NotFoundException Si el usuario no existe.
+     */
     fun eliminarUsuario(id: String) {
         if (!usuarioRepository.existsById(id)) {
             throw NotFoundException("Usuario no encontrado")
@@ -117,6 +152,11 @@ class UsuarioService : UserDetailsService {
         usuarioRepository.deleteById(id)
     }
 
+    /**
+     * ### Obtiene una lista de usuarios con sus tareas asociadas.
+     *
+     * @return Lista de UsuarioConTareasDTO con los usuarios y sus tareas.
+     */
     fun obtenerUsuariosConTareas(): List<UsuarioConTareasDTO> {
         return usuarioRepository.findAll().map { usuario ->
             val tareas = tareaRepository.findByUsuario(usuario).map { tarea ->
