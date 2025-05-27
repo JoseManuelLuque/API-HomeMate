@@ -4,6 +4,12 @@ icon: inbox-full
 
 # API Rest Segura - Gestión de tareas del hogar
 
+### Enlace al documento original
+
+[Link de Gitbook](https://josemanuelluque-2dam.gitbook.io/acceso-a-datos/api-rest-segura-gestion-de-tareas-del-hogar)
+
+***
+
 ### 🔧 Pruebas
 
 {% content-ref url="pruebas-usuarios.md" %}
