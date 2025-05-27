@@ -29,13 +29,11 @@ Esta sección documenta las pruebas realizadas sobre el endpoint de **Tareas**, 
 
 **Descripción:** Se crea una tarea correctamente y la API responde con `201 Created`.
 
-📸 **Captura en Postman:**\
-
+📸 **Captura en Postman:**\\
 
 <figure><img src=".gitbook/assets/imagen_2025-03-02_033149030.png" alt=""><figcaption></figcaption></figure>
 
-📱 **Captura en la App:**\
-
+📱 **Captura en la App:**\\
 
 ***
 
@@ -43,13 +41,11 @@ Esta sección documenta las pruebas realizadas sobre el endpoint de **Tareas**, 
 
 **Descripción:** Se intenta crear una tarea sin completar todos los campos obligatorios. La API devuelve `400 Bad Request`.
 
-📸 **Captura en Postman:**\
-
+📸 **Captura en Postman:**\\
 
 <figure><img src=".gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
 
-📱 **Captura en la App:**\
-
+📱 **Captura en la App:**\\
 
 ***
 
@@ -63,22 +59,17 @@ Esta sección documenta las pruebas realizadas sobre el endpoint de **Tareas**, 
 
 <figure><img src=".gitbook/assets/image (1).png" alt=""><figcaption></figcaption></figure>
 
-📱 **Captura en la App:**\
-
+📱 **Captura en la App:**\\
 
 ***
 
 #### ❌ **Intentar ver tareas sin autenticación**
 
-**Descripción:** Se intenta acceder al listado de tareas sin un token válido. La API devuelve `401 Unauthorized`.
+**Descripción:** Se intenta acceder al listado de tareas sin un token válido. La API devuelve `401 Unauthorized` desde la app lo primero que tienes que hacer es autentificarte así que es imposible acceder a cualquier funcion que no se iniciar sesión o registrarse.
 
-📸 **Captura en Postman:**\
-
+📸 **Captura en Postman:**
 
 <figure><img src=".gitbook/assets/image (2).png" alt=""><figcaption></figcaption></figure>
-
-📱 **Captura en la App:**\
-
 
 ***
 
@@ -92,21 +83,17 @@ Esta sección documenta las pruebas realizadas sobre el endpoint de **Tareas**, 
 
 📱 **Captura en la App:**
 
-
+<figure><img src=".gitbook/assets/image (11).png" alt=""><figcaption></figcaption></figure>
 
 ***
 
 #### ❌ Intentar ver todas las tareas sin ser Administrador
 
-
+Si no eres administrador en Postman te slata un error `403 Forbidden` desde la aplicación es imposible realizar esta operación si no eres administrador.&#x20;
 
 📸 **Captura en Postman:**
 
-
-
-📱 **Captura en la App:**
-
-
+<figure><img src=".gitbook/assets/image (4).png" alt=""><figcaption></figcaption></figure>
 
 ***
 
@@ -116,11 +103,13 @@ Esta sección documenta las pruebas realizadas sobre el endpoint de **Tareas**, 
 
 **Descripción:** Se actualiza el estado de una tarea a "HECHA". La API devuelve `200 OK`.
 
-📸 **Captura en Postman:**\
+📸 **Captura en Postman:**
 
 
-📱 **Captura en la App:**\
 
+📱 **Captura en la App:**
+
+<figure><img src=".gitbook/assets/image (10).png" alt=""><figcaption></figcaption></figure>
 
 ***
 
@@ -128,11 +117,9 @@ Esta sección documenta las pruebas realizadas sobre el endpoint de **Tareas**, 
 
 **Descripción:** Se intenta marcar como hecha una tarea de otro usuario. La API devuelve `403 Forbidden`.
 
-📸 **Captura en Postman:**\
+📸 **Captura en Postman:**
 
-
-📱 **Captura en la App:**\
-
+📱 **Captura en la App:**
 
 ***
 
@@ -140,45 +127,44 @@ Esta sección documenta las pruebas realizadas sobre el endpoint de **Tareas**, 
 
 #### ✅ **Eliminar tarea propia**
 
-**Descripción:** Se elimina correctamente una tarea propia. La API devuelve `200 OK`.
+**Descripción:** Se elimina correctamente una tarea propia. La API devuelve `204 No Content`.
 
-📸 **Captura en Postman:**\
+📸 **Captura en Postman:**
 
+<figure><img src=".gitbook/assets/image (8).png" alt=""><figcaption></figcaption></figure>
 
-📱 **Captura en la App:**\
+📱 **Captura en la App:**
 
+<figure><img src=".gitbook/assets/image (6).png" alt=""><figcaption></figcaption></figure>
 
 ***
 
 #### ❌ **Intentar eliminar tarea que no pertenece al usuario**
 
-**Descripción:** Se intenta eliminar una tarea asignada a otro usuario. La API devuelve `403 Forbidden`.
+**Descripción:** Se intenta eliminar una tarea asignada a otro usuario. La API devuelve `403 Forbidden` y en la aplicacion siendo usuario normal es imposible acceder a tareas que no son tuyas.
 
-📸 **Captura en Postman:**\
-
-
-📱 **Captura en la App:**\
-
+📸 **Captura en Postman:**
 
 ***
 
 #### ✅ **Eliminar tarea como ADMIN**
 
-**Descripción:** Un usuario con rol ADMIN elimina una tarea de cualquier usuario. La API devuelve `200 OK`.
+**Descripción:** Un usuario con rol ADMIN elimina una tarea de cualquier usuario. La API devuelve `204 No content`.
 
-📸 **Captura en Postman:**\
+📸 **Captura en Postman:**
 
+<figure><img src=".gitbook/assets/image (14).png" alt=""><figcaption></figcaption></figure>
 
-📱 **Captura en la App:**\
+📱 **Captura en la App:**
 
+<figure><img src=".gitbook/assets/image (15).png" alt=""><figcaption></figcaption></figure>
 
 ***
 
 #### ❌ **Intentar eliminar tarea inexistente**
 
-**Descripción:** Se intenta eliminar una tarea que no existe en la base de datos. La API devuelve `404 Not Found`.
+**Descripción:** Se intenta eliminar una tarea que no existe en la base de datos. La API devuelve `404 Not Found` y desde la aplicación no se puede borrar una tarea que no existe ya que nunca se muestra.
 
-📸 **Captura en Postman:**\
+📸 **Captura en Postman:**
 
-
-📱 **Captura en la App:**\
+<figure><img src=".gitbook/assets/image (5).png" alt=""><figcaption></figcaption></figure>
