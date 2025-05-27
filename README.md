@@ -14,48 +14,44 @@ icon: inbox-full
 [pruebas-de-gestion-de-tareas.md](pruebas-de-gestion-de-tareas.md)
 {% endcontent-ref %}
 
-
-
 ### 📄 **Documento Usuario**
 
 Representa a los usuarios que pueden registrarse en la aplicación, iniciar sesión y gestionar las tareas dentro de un hogar.
 
 #### **Atributos:**
 
-* `id`: **ObjectId** – Identificador único del usuario.
+* `_id`: **ObjectId** – Identificador único del usuario.
 * `username`: **String** – Nombre de usuario único para autenticación.
 * `password`: **String** – Contraseña almacenada de forma segura (hasheada).
-* `roles`: **List\<String>** – Lista de roles que puede tener el usuario (`USER`, `ADMIN`).
+* `email`: String – Email del usuario, debe ser uniqco en la base de datos.
+* `roles`: **List\<String>** Lista de roles que puede tener el usuario (`USER`, `ADMIN`).
 * `hogar`: **Hogar** – Relación con **Hogar** para indicar a qué hogar pertenece el usuario.
-* `tareas`: **List\<Tarea>** – Lista de tareas que le han sido asignadas.
 
 #### **Relaciones:**
 
 * Un usuario puede pertenecer a un **Hogar** (ManyToOne).
-* Un usuario puede tener varias **Tareas** asignadas (OneToMany).
 
 ***
 
-### 📄 **Documento Tareas**
+### 📄 **Documento Tarea**
 
 Representa las tareas que deben realizar los usuarios dentro de un hogar.
 
 #### **Atributos:**
 
-* `id`: **Int** – Identificador único de la tarea.
-* `descripcion`: **String** – Texto que describe la tarea.
-* `estado`: **Enum (`PENDIENTE`, `HECHA`)** – Estado actual de la tarea.
+* `_id`: **Int** – Identificador único de la tarea.
+* – : **String** – Texto que describe la tarea.
+* `estado`: **Boolean** – Estado actual de la tarea (Completada o no).
 * `usuario`: **Usuario** – Usuario al que está asignada la tarea.
 * `hogar`: **Hogar** – Relación con el **Hogar** en el que se debe realizar la tarea.
 
 #### **Relaciones:**
 
 * Una **Tarea** pertenece a un **Usuario** (ManyToOne).
-* Una **Tarea** pertenece a un **Hogar** (ManyToOne).
 
 ***
 
-### 📄 **Documento Hogares**
+### 📄 **Documento Hogares (Proximamente)**
 
 Representa los hogares en los que varios usuarios pueden colaborar para gestionar tareas.
 
@@ -75,45 +71,31 @@ Representa los hogares en los que varios usuarios pueden colaborar para gestiona
 
 ***
 
-### 📄 **Documento Direcciones**
-
-Contiene la información de ubicación de un hogar.
-
-#### **Atributos:**
-
-* `id`: **Int** – Identificador único de la dirección.
-* `calle`: **String** – Nombre de la calle.
-* `numero`: **Int** – Número de la vivienda.
-* `municipio`: **String** – Municipio al que pertenece.
-* `provincia`: **String** – Provincia donde se encuentra.
-
-#### **Relaciones:**
-
-* Una **Dirección** pertenece a un **Hogar** (OneToOne).
-
-***
-
 ## 📌 **Endpoints de la API**
 
 ### 📄 **Usuarios** (`/api/usuarios`)
 
-| Método | Endpoint           | Descripción                                                   | Seguridad                |
-| ------ | ------------------ | ------------------------------------------------------------- | ------------------------ |
-| `POST` | `/register`        | Registra un nuevo usuario con su nombre, contraseña y hogar.  | Público                  |
-| `POST` | `/login`           | Autentica a un usuario y devuelve un token JWT.               | Público                  |
-| `GET`  | `/yo`              | Obtiene la información del usuario autenticado.               | Usuario autenticado      |
-| `GET`  | `/{id}`            | Obtiene la información de un usuario específico (solo ADMIN). | ADMIN                    |
-| `GET`  | `/hogar/{hogarId}` | Lista los usuarios de un hogar específico.                    | ADMIN, Usuario del hogar |
+| Método   | Endpoint           | Descripción                                                                   | Seguridad                |
+| -------- | ------------------ | ----------------------------------------------------------------------------- | ------------------------ |
+| `POST`   | `/register`        | Registra un nuevo usuario con su nombre, contraseña y hogar.                  | Público                  |
+| `POST`   | `/login`           | Autentica a un usuario y devuelve un token JWT.                               | Público                  |
+| `GET`    | `/admin`           | Devuelbe un booleano true si el usuario que hace la peticion es administrador | Usuario autenticado      |
+| `GET`    | `/me`              | Obtiene la información del usuario autenticado.                               | Usuario autenticado      |
+| `PUT`    | `/update`          | Actualiza un usuario                                                          | Usuario autenticado      |
+| `DELETE` | `/delete/{id}`     | Borra a un usuario por su id                                                  | ADMIN                    |
+| `GET`    | `/tareas`          | Obtiene la información de las tareas                                          | ADMIN                    |
+| `GET`    | `/hogar/{hogarId}` | Lista los usuarios de un hogar específico.                                    | ADMIN, Usuario del hogar |
 
 ### 📄 **Tareas** (`/api/tareas`)
 
-| Método   | Endpoint | Descripción                                      | Seguridad           |
-| -------- | -------- | ------------------------------------------------ | ------------------- |
-| `POST`   | `/`      | Crea una nueva tarea en un hogar.                | Usuario autenticado |
-| `GET`    | `/`      | Lista las tareas del usuario autenticado.        | Usuario autenticado |
-| `GET`    | `/{id}`  | Obtiene los detalles de una tarea específica.    | Usuario autenticado |
-| `PUT`    | `/{id}`  | Marca una tarea como hecha (solo dueño o ADMIN). | Usuario autenticado |
-| `DELETE` | `/{id}`  | Elimina una tarea (solo dueño o ADMIN).          | Usuario autenticado |
+| Método   | Endpoint                     | Descripción                                                 | Seguridad                 |
+| -------- | ---------------------------- | ----------------------------------------------------------- | ------------------------- |
+| `POST`   | `/crear`                     | Crea una nueva tarea.                                       | Usuario autenticado       |
+| `POST`   | `/crear/usuario/{idUsuario}` | Crea una tarea al usuario especificado                      | ADMIN                     |
+| `GET`    | `/usuario`                   | Lista las tareas del usuario autenticado.                   | Usuario autenticado       |
+| `GET`    | `/getAll`                    | Devuelve todas las tareas de la base de datos               | ADMIN                     |
+| `PUT`    | `/update/status/{id}`        | Marca una tarea como hecha o al réves (solo dueño o ADMIN). | Usuario autenticado/ADMIN |
+| `DELETE` | `/delete/{id}`               | Elimina una tarea (solo dueño o ADMIN).                     | Usuario autenticado/ADMIN |
 
 ### 📄 **Hogares** (`/api/hogares`)
 
@@ -124,13 +106,6 @@ Contiene la información de ubicación de un hogar.
 | `GET`    | `/{id}`  | Obtiene los detalles de un hogar específico.      | Usuario autenticado |
 | `PUT`    | `/{id}`  | Modifica la información de un hogar (solo ADMIN). | ADMIN               |
 | `DELETE` | `/{id}`  | Elimina un hogar (solo ADMIN).                    | ADMIN               |
-
-### 📄 **Direcciones** (`/api/direcciones`)
-
-| Método | Endpoint           | Descripción                        | Seguridad         |
-| ------ | ------------------ | ---------------------------------- | ----------------- |
-| `GET`  | `/hogar/{hogarId}` | Obtiene la dirección de un hogar.  | Usuario del hogar |
-| `PUT`  | `/hogar/{hogarId}` | Modifica la dirección de un hogar. | ADMIN             |
 
 ***
 
