@@ -111,7 +111,7 @@ Si no eres administrador en Postman te slata un error `403 Forbidden` desde la a
 
 📸 **Captura en Postman:**
 
-
+<figure><img src=".gitbook/assets/image (17).png" alt=""><figcaption></figcaption></figure>
 
 📱 **Captura en la App:**
 
@@ -121,11 +121,11 @@ Si no eres administrador en Postman te slata un error `403 Forbidden` desde la a
 
 #### ❌ **Intentar marcar tarea que no pertenece al usuario**
 
-**Descripción:** Se intenta marcar como hecha una tarea de otro usuario. La API devuelve `403 Forbidden`.
+**Descripción:** Se intenta marcar como hecha una tarea de otro usuario. La API devuelve `401 Unauthorized`, en la app solo pueden hacerlo los administradores y si que tienen permiso para poder hacerlo.
 
 📸 **Captura en Postman:**
 
-📱 **Captura en la App:**
+<figure><img src=".gitbook/assets/image (16).png" alt=""><figcaption></figcaption></figure>
 
 ***
 
