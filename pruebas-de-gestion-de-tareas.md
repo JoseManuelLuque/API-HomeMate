@@ -29,11 +29,13 @@ Esta sección documenta las pruebas realizadas sobre el endpoint de **Tareas**, 
 
 **Descripción:** Se crea una tarea correctamente y la API responde con `201 Created`.
 
-📸 **Captura en Postman:**\\
+📸 **Captura en Postman:**
 
 <figure><img src=".gitbook/assets/imagen_2025-03-02_033149030.png" alt=""><figcaption></figcaption></figure>
 
-📱 **Captura en la App:**\\
+📱 **Captura en la App:**
+
+<figure><img src=".gitbook/assets/image (1).png" alt=""><figcaption></figcaption></figure>
 
 ***
 
@@ -41,11 +43,13 @@ Esta sección documenta las pruebas realizadas sobre el endpoint de **Tareas**, 
 
 **Descripción:** Se intenta crear una tarea sin completar todos los campos obligatorios. La API devuelve `400 Bad Request`.
 
-📸 **Captura en Postman:**\\
+📸 **Captura en Postman:**
+
+<figure><img src=".gitbook/assets/image (3).png" alt=""><figcaption></figcaption></figure>
+
+📱 **Captura en la App:**
 
 <figure><img src=".gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
-
-📱 **Captura en la App:**\\
 
 ***
 
@@ -57,9 +61,11 @@ Esta sección documenta las pruebas realizadas sobre el endpoint de **Tareas**, 
 
 📸 **Captura en Postman:**
 
-<figure><img src=".gitbook/assets/image (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src=".gitbook/assets/image (1) (1).png" alt=""><figcaption></figcaption></figure>
 
-📱 **Captura en la App:**\\
+📱 **Captura en la App:**
+
+<figure><img src=".gitbook/assets/image (2).png" alt=""><figcaption></figcaption></figure>
 
 ***
 
@@ -69,7 +75,7 @@ Esta sección documenta las pruebas realizadas sobre el endpoint de **Tareas**, 
 
 📸 **Captura en Postman:**
 
-<figure><img src=".gitbook/assets/image (2).png" alt=""><figcaption></figcaption></figure>
+<figure><img src=".gitbook/assets/image (2) (1).png" alt=""><figcaption></figcaption></figure>
 
 ***
 
@@ -79,7 +85,7 @@ Esta sección documenta las pruebas realizadas sobre el endpoint de **Tareas**, 
 
 📸 **Captura en Postman:**
 
-<figure><img src=".gitbook/assets/image (3).png" alt=""><figcaption></figcaption></figure>
+<figure><img src=".gitbook/assets/image (3) (1).png" alt=""><figcaption></figcaption></figure>
 
 📱 **Captura en la App:**
 
